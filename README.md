@@ -18,3 +18,6 @@ All copy is in `src/data/site.ts`, tagged by source:
 - Email is sales@tavancontractors.co.uk — swap in a London Leadwork address if there is one.
 - Reviews are Tavan's (London Leadwork has no Google profile yet). Once it has one, update `google` in site.ts.
 - Area pages state straight-line miles from the Bracknell base, nothing else claimed per town.
+
+## Hero video
+`public/video/hero-uk-roofs.mp4` — Pexels video 33953496 by David Pickup (GB), "Aerial View of Suburban Neighborhood at Sunrise", free under the Pexels licence. Re-encoded 1600px/30fps, 12s, no audio.

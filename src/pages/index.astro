@@ -15,6 +15,11 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
   schema={faqSchema}
 >
   <section class="hero dark">
+    <div class="hero__video" aria-hidden="true">
+      <video data-hero-video muted loop playsinline preload="metadata" poster="/video/hero-uk-roofs.webp" width="1600" height="900">
+        <source data-src="/video/hero-uk-roofs.mp4" type="video/mp4" />
+      </video>
+    </div>
     <div class="wrap hero__grid">
       <div class="hero__copy">
         <p class="label kicker bz">Berkshire · Surrey · South London · Thames Valley</p>
@@ -124,9 +129,22 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
   <EnquiryBand />
 </Base>
 
+<script>
+  const v = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator as any).connection?.saveData;
+  if (v && !calm) {
+    const s = v.querySelector<HTMLSourceElement>('source');
+    if (s?.dataset.src) { s.src = s.dataset.src; v.load(); v.play().catch(() => {}); }
+    new IntersectionObserver((es) => es.forEach((e) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()))).observe(v);
+  }
+</script>
+
 <style>
   .hero { position: relative; padding: calc(var(--hdr) + clamp(36px, 5vw, 80px)) 0 clamp(56px, 6vw, 96px); background: radial-gradient(60% 70% at 80% 30%, rgba(168, 139, 114, 0.16), transparent 70%), var(--black); overflow: hidden; }
-  .hero__grid { display: grid; gap: 44px; align-items: center; }
+  .hero__video { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .hero__video video { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: saturate(0.55) sepia(0.25) contrast(1.05); }
+  .hero__video::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12, 11, 9, 0.92) 0%, rgba(12, 11, 9, 0.55) 55%, rgba(12, 11, 9, 0.35) 100%), linear-gradient(180deg, rgba(12, 11, 9, 0.2) 60%, var(--black) 100%); }
+  .hero__grid { position: relative; z-index: 1; display: grid; gap: 44px; align-items: center; }
   .hero__copy { display: grid; gap: 24px; justify-items: start; }
   .hero h1 { max-width: 15ch; }
   .hero__sub { display: block; margin-top: 0.3em; font-size: 0.42em; letter-spacing: 0.06em; color: var(--text-on-dark); line-height: 1.15; }
@@ -156,7 +174,9 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
 
   .svc__head { display: grid; gap: 16px; margin-bottom: 40px; }
   .svc__head .muted { max-width: 60ch; }
-  @media (min-width: 1000px) { .svc__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; } }
+  #svc-h { white-space: nowrap; }
+  @media (max-width: 380px) { #svc-h { font-size: 1.6rem; } }
+  @media (min-width: 1000px) { .svc__head { grid-template-columns: auto minmax(0, 1fr); gap: 56px; align-items: end; } }
 
   .proc .kicker { margin-bottom: 16px; }
   .proc__grid { margin: 40px 0 0; display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr); }
