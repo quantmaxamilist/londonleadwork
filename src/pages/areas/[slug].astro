@@ -6,7 +6,7 @@ import Reviews from '../../components/Reviews.astro';
 import Faq from '../../components/Faq.astro';
 import EnquiryBand from '../../components/EnquiryBand.astro';
 import Icon from '../../components/Icon.astro';
-import { areas, nearby, fromBase, lead, contact, services, img, SITE, type Area } from '../../data/site';
+import { areas, isLondon, nearby, fromBase, lead, contact, services, img, SITE, type Area } from '../../data/site';
 export function getStaticPaths() { return areas.map((a, i) => ({ params: { slug: a.slug }, props: { a, i } })); }
 const { a, i } = Astro.props as { a: Area; i: number };
 const d = fromBase(a);
@@ -16,7 +16,7 @@ const hero = heroImgs[i % heroImgs.length];
 const isBase = a.slug === 'bracknell';
 const where = isBase ? 'right here in Bracknell, where we are based' : `about ${d} miles from our base in Bracknell`;
 const faqs = [
-  { q: `Do you do lead work in ${a.name}?`, a: `Yes. ${a.name} is ${where}, inside the ${a.county === 'Hampshire' ? 'home counties and M4 corridor area' : a.county} area we cover.` },
+  { q: `Do you do lead work in ${a.name}?`, a: `Yes. ${a.name} is ${where}, inside the ${a.county === 'Hampshire' ? 'home counties and M4 corridor' : a.county} area we cover.` },
   { q: `What lead work do you do in ${a.name}?`, a: `${lead.list.slice(0, 6).join(', ')}, and ${lead.list[6].charAt(0).toLowerCase() + lead.list[6].slice(1)}` },
   { q: 'What standard do you work to?', a: lead.standard },
   { q: `How do I get a quote in ${a.name}?`, a: `${lead.quote} — call ${contact.phone}, or use the form on our contact page.` },
@@ -36,7 +36,7 @@ const schema = [
       <div class="ap__txt">
         <h2 class="display fs-d3" data-reveal>Lead roofing in {a.name}</h2>
         <p class="lede" data-reveal>{lead.p2}</p>
-        <p data-reveal>We are based in Bracknell{isBase ? '' : `, about ${d} miles from ${a.name} as the crow flies`}, and cover {a.county === 'Hampshire' ? 'the home counties and M4 corridor' : a.county} as well as {['Berkshire', 'Thames Valley', 'Surrey', 'South London'].filter((r) => r !== a.county).join(', ')}.</p>
+        <p data-reveal>We are based in Bracknell{isBase ? '' : `, about ${d} miles from ${a.name} as the crow flies`}, and cover {isLondon(a.county) ? 'every part of London' : a.county === 'Hampshire' ? 'the home counties and M4 corridor' : a.county} as well as {['London', 'Berkshire', 'Surrey', 'the Thames Valley'].filter((r) => !(r === 'London' && isLondon(a.county)) && r !== a.county).join(', ')}.</p>
         <p class="ap__std" data-reveal><Icon name="check" size={20} /><span>{lead.standard}</span></p>
       </div>
       <div data-reveal>

@@ -24,7 +24,7 @@ const biz = {
   address: { '@type': 'PostalAddress', streetAddress: contact.street, addressLocality: contact.town, postalCode: contact.postcode, addressRegion: 'Berkshire', addressCountry: 'GB' },
   geo: { '@type': 'GeoCoordinates', latitude: contact.geo.lat, longitude: contact.geo.lng },
   areaServed: [
-    ...['Berkshire', 'Surrey', 'South London', 'Thames Valley'].map((n) => ({ '@type': 'AdministrativeArea', name: n })),
+    ...['London', 'Greater London', 'Berkshire', 'Surrey', 'Thames Valley'].map((n) => ({ '@type': 'AdministrativeArea', name: n })),
     ...areas.map((a) => ({ '@type': 'City', name: a.name })),
   ],
   hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Lead work', itemListElement: services.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.name, url: `${SITE}/lead-work/${s.slug}` } })) },

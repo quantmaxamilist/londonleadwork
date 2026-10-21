@@ -10,8 +10,8 @@ import { lead, coverage, google, contact, work, process, areas, regions, faqs, i
 const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 ---
 <Base
-  title="London Leadwork | Lead Roofing Specialists — Berkshire, Surrey & South London"
-  description="Specialist lead work: lead sheet roofs, dormer cheeks, box gutters, bay roofs, chimney gutters and flashings. Based in Bracknell, covering Berkshire, Thames Valley, Surrey and South London. Free quotes."
+  title="London Leadwork | Lead Roofing Specialists — London, Berkshire & Surrey"
+  description="Specialist lead work: lead sheet roofs, dormer cheeks, box gutters, bay roofs, chimney gutters and flashings. Based in Bracknell, covering London, Berkshire, Surrey and the Thames Valley. Free quotes."
   schema={faqSchema}
 >
   <section class="hero dark">
@@ -22,7 +22,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
     </div>
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <p class="label kicker bz">Berkshire · Surrey · South London · Thames Valley</p>
+        <p class="label kicker bz">London · Berkshire · Surrey · Thames Valley</p>
         <h1 class="display fs-hero"><span class="metal">Leadwork specialists</span> <span class="hero__sub">for London &amp; the home counties</span></h1>
         <p class="lede">{lead.p1}</p>
         <div class="hero__btns">
@@ -110,7 +110,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
       <div class="ar__head">
         <div>
           <p class="label kicker bz" data-reveal>Areas we cover</p>
-          <h2 id="ar-h" class="display fs-d2 metal" data-reveal>Based in Bracknell</h2>
+          <h2 id="ar-h" class="display fs-d2 metal" data-reveal>All of London &amp; the home counties</h2>
         </div>
         <p class="muted ar__p" data-reveal>{coverage.base} {lead.areasQ}</p>
       </div>
@@ -200,6 +200,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
   .ar__cols { display: grid; gap: 32px 24px; grid-template-columns: minmax(0, 1fr); }
   @media (min-width: 560px) { .ar__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1000px) { .ar__cols { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  @media (min-width: 1240px) { .ar__cols { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
   .ar__cols ul { margin: 14px 0 0; border-top: 1px solid var(--line-dark); }
   .ar__cols a { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line-dark); text-decoration: none; font-size: 0.95rem; }
   .ar__cols a:hover { color: var(--champagne); }

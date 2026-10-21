@@ -21,7 +21,7 @@ import { contact, services, areas, brand, google, regions } from '../data/site';
         </div>
         <div>
           <p class="label muted">Areas</p>
-          <ul role="list" class="ftr__areas">{areas.slice(0, 16).map((a) => <li><a href={`/areas/${a.slug}`}>{a.name}</a></li>)}<li><a href="/areas">All areas</a></li></ul>
+          <ul role="list" class="ftr__areas">{areas.filter((a) => ['london','westminster','kensington','chelsea','islington','hampstead','hackney','greenwich','fulham','ealing','richmond','wimbledon','bracknell','reading','windsor','guildford'].includes(a.slug)).map((a) => <li><a href={`/areas/${a.slug}`}>{a.name}</a></li>)}<li><a href="/areas">All areas</a></li></ul>
         </div>
         <div>
           <p class="label muted">Contact</p>
@@ -36,7 +36,7 @@ import { contact, services, areas, brand, google, regions } from '../data/site';
         </div>
       </div>
     </div>
-    <p class="ftr__cover muted">Lead work across {regions.join(', ')}. Based in Bracknell.</p>
+    <p class="ftr__cover muted">Lead work across London, Berkshire, Surrey and the Thames Valley. Based in Bracknell.</p>
     <div class="ftr__bottom">
       <p>© 2026 {brand.legalName}</p>
       <a href="/contact" class="link-arrow">Free quote <Icon name="arrow" size={16} /></a>

@@ -47,7 +47,7 @@ export const lead = {
     'Flashings to parapet walls and chimney stacks.',
     'Installation of lead slates for flue pipes that penetrate slate, tile or flat roofs.',
   ],
-  areasQ: 'Do you require lead-work services in Berkshire, Thames Valley, Surrey or South London?',
+  areasQ: 'Do you require lead-work services in London, Berkshire, Surrey or the Thames Valley?',
   quote: 'Call or email to arrange a FREE quotation',
 };
 
@@ -174,7 +174,7 @@ export const lantern = {
 export const faqs = [
   { q: 'What lead work do you do?', a: 'Lead sheet roofs, lead side cheeks to dormers, lead box gutters, lead box windows, chimney gutters, flashings to parapet walls and chimney stacks, and lead slates for flue pipes that penetrate slate, tile or flat roofs.' },
   { q: 'What standard do you work to?', a: 'All our lead work comply with the BS EN 12588 standard.' },
-  { q: 'Which areas do you cover?', a: 'Berkshire, Thames Valley, Surrey and South London. We are based in Bracknell and operate throughout the home counties and M4 corridor.' },
+  { q: 'Which areas do you cover?', a: 'All of London — central, north, east, west and south — plus Berkshire, Surrey and the Thames Valley. We are based in Bracknell and operate throughout the home counties and M4 corridor.' },
   { q: 'Is the quote free?', a: 'Yes. Call or email to arrange a FREE quotation.' },
 ];
 
@@ -211,6 +211,43 @@ export const areas: Area[] = [
   { slug: 'esher', name: 'Esher', county: 'Surrey', lat: 51.369, lng: -0.365 },
   { slug: 'epsom', name: 'Epsom', county: 'Surrey', lat: 51.336, lng: -0.267 },
   { slug: 'farnborough', name: 'Farnborough', county: 'Hampshire', lat: 51.294, lng: -0.756 },
+  { slug: 'london', name: 'London', county: 'Central London', lat: 51.5074, lng: -0.1278 },
+  { slug: 'westminster', name: 'Westminster', county: 'Central London', lat: 51.4975, lng: -0.1357 },
+  { slug: 'mayfair', name: 'Mayfair', county: 'Central London', lat: 51.5099, lng: -0.1478 },
+  { slug: 'belgravia', name: 'Belgravia', county: 'Central London', lat: 51.4976, lng: -0.153 },
+  { slug: 'kensington', name: 'Kensington', county: 'Central London', lat: 51.4991, lng: -0.1938 },
+  { slug: 'chelsea', name: 'Chelsea', county: 'Central London', lat: 51.4875, lng: -0.1687 },
+  { slug: 'notting-hill', name: 'Notting Hill', county: 'Central London', lat: 51.5096, lng: -0.2043 },
+  { slug: 'marylebone', name: 'Marylebone', county: 'Central London', lat: 51.5225, lng: -0.155 },
+  { slug: 'city-of-london', name: 'City of London', county: 'Central London', lat: 51.5155, lng: -0.0922 },
+  { slug: 'islington', name: 'Islington', county: 'North London', lat: 51.5362, lng: -0.1033 },
+  { slug: 'camden', name: 'Camden', county: 'North London', lat: 51.539, lng: -0.1426 },
+  { slug: 'hampstead', name: 'Hampstead', county: 'North London', lat: 51.556, lng: -0.178 },
+  { slug: 'highgate', name: 'Highgate', county: 'North London', lat: 51.5713, lng: -0.1452 },
+  { slug: 'muswell-hill', name: 'Muswell Hill', county: 'North London', lat: 51.59, lng: -0.143 },
+  { slug: 'finchley', name: 'Finchley', county: 'North London', lat: 51.599, lng: -0.187 },
+  { slug: 'hendon', name: 'Hendon', county: 'North London', lat: 51.583, lng: -0.226 },
+  { slug: 'barnet', name: 'Barnet', county: 'North London', lat: 51.65, lng: -0.2 },
+  { slug: 'enfield', name: 'Enfield', county: 'North London', lat: 51.6523, lng: -0.0807 },
+  { slug: 'hackney', name: 'Hackney', county: 'East London', lat: 51.545, lng: -0.0553 },
+  { slug: 'stratford', name: 'Stratford', county: 'East London', lat: 51.5413, lng: -0.0036 },
+  { slug: 'canary-wharf', name: 'Canary Wharf', county: 'East London', lat: 51.5054, lng: -0.0235 },
+  { slug: 'walthamstow', name: 'Walthamstow', county: 'East London', lat: 51.583, lng: -0.02 },
+  { slug: 'greenwich', name: 'Greenwich', county: 'East London', lat: 51.4826, lng: -0.0077 },
+  { slug: 'romford', name: 'Romford', county: 'East London', lat: 51.575, lng: 0.183 },
+  { slug: 'hammersmith', name: 'Hammersmith', county: 'West London', lat: 51.4927, lng: -0.224 },
+  { slug: 'fulham', name: 'Fulham', county: 'West London', lat: 51.473, lng: -0.205 },
+  { slug: 'chiswick', name: 'Chiswick', county: 'West London', lat: 51.492, lng: -0.258 },
+  { slug: 'ealing', name: 'Ealing', county: 'West London', lat: 51.513, lng: -0.3089 },
+  { slug: 'twickenham', name: 'Twickenham', county: 'West London', lat: 51.4462, lng: -0.3295 },
+  { slug: 'hounslow', name: 'Hounslow', county: 'West London', lat: 51.4668, lng: -0.3615 },
+  { slug: 'harrow', name: 'Harrow', county: 'West London', lat: 51.5806, lng: -0.342 },
+  { slug: 'uxbridge', name: 'Uxbridge', county: 'West London', lat: 51.546, lng: -0.479 },
+  { slug: 'battersea', name: 'Battersea', county: 'South London', lat: 51.47, lng: -0.17 },
+  { slug: 'streatham', name: 'Streatham', county: 'South London', lat: 51.429, lng: -0.131 },
+  { slug: 'dulwich', name: 'Dulwich', county: 'South London', lat: 51.441, lng: -0.085 },
+  { slug: 'blackheath', name: 'Blackheath', county: 'South London', lat: 51.466, lng: 0.009 },
+  { slug: 'bromley', name: 'Bromley', county: 'South London', lat: 51.406, lng: 0.015 },
   { slug: 'kingston-upon-thames', name: 'Kingston upon Thames', county: 'South London', lat: 51.4123, lng: -0.3007 },
   { slug: 'richmond', name: 'Richmond', county: 'South London', lat: 51.4613, lng: -0.3037 },
   { slug: 'wimbledon', name: 'Wimbledon', county: 'South London', lat: 51.4214, lng: -0.2064 },
@@ -219,7 +256,8 @@ export const areas: Area[] = [
   { slug: 'sutton', name: 'Sutton', county: 'South London', lat: 51.3618, lng: -0.1945 },
   { slug: 'croydon', name: 'Croydon', county: 'South London', lat: 51.3762, lng: -0.0982 },
 ];
-export const regions = ['Berkshire', 'Thames Valley', 'Surrey', 'Hampshire', 'South London'];
+export const regions = ['Central London', 'North London', 'East London', 'West London', 'South London', 'Berkshire', 'Surrey', 'Thames Valley', 'Hampshire'];
+export const isLondon = (c: string) => c.endsWith('London');
 
 const R = 3958.8;
 export function miles(a: { lat: number; lng: number }, b: { lat: number; lng: number }) {
