@@ -1,0 +1,185 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import ServiceGrid from '../components/ServiceGrid.astro';
+import LanternBuild from '../components/LanternBuild.astro';
+import Reviews from '../components/Reviews.astro';
+import Faq from '../components/Faq.astro';
+import EnquiryBand from '../components/EnquiryBand.astro';
+import { lead, tavan, brand, google, contact, work, process, areas, regions, faqs, img, fromBase } from '../data/site';
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+<Base
+  title="London Leadwork | Lead Roofing Specialists — Berkshire, Surrey & South London"
+  description="Specialist lead work: lead sheet roofs, dormer cheeks, box gutters, bay roofs, chimney gutters and flashings. Based in Bracknell, covering Berkshire, Thames Valley, Surrey and South London. Free quotes."
+  schema={faqSchema}
+>
+  <section class="hero dark">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="label kicker bz">Berkshire · Surrey · South London · Thames Valley</p>
+        <h1 class="display fs-hero"><span class="metal">Leadwork specialists</span> <span class="hero__sub">for London &amp; the home counties</span></h1>
+        <p class="lede">{lead.p1}</p>
+        <div class="hero__btns">
+          <a href="/contact" class="btn">Get a free quote <Icon name="arrow" /></a>
+          <a href={contact.phoneHref} class="btn btn--ghost"><Icon name="phone" />{contact.phone}</a>
+        </div>
+        <a class="hero__g" href="#reviews">
+          <span class="hero__stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={15} />)}</span>
+          <span><strong>{google.rating}</strong> on Google · {google.count} reviews of {brand.parent}</span>
+        </a>
+      </div>
+      <div class="hero__media">
+        <div class="ph hero__a"><img src={img('curved-pediment-finished')} alt="Curved pediment clad in lead above a flat roof" width="1200" height="1600" fetchpriority="high" /></div>
+        <div class="ph hero__b"><img src={img('lead-lantern-ball-finial', true)} alt="Octagonal lead lantern roof with ball finial" width="600" height="800" /></div>
+        <p class="hero__cap label">Real jobs · lead pediment &amp; lantern</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="intro sec stone">
+    <div class="wrap intro__grid">
+      <div>
+        <p class="label kicker bz" data-reveal>{lead.title}</p>
+        <h2 class="display fs-d2" data-reveal>From {brand.parent}, now its own business</h2>
+      </div>
+      <div class="intro__txt">
+        <p class="statement" data-reveal>{lead.p2}</p>
+        <p data-reveal>London Leadwork is the lead work side of {brand.parent}, the Bracknell roofing company. {tavan.experience.replace('At Tavan we offer', 'Tavan offers')}</p>
+        <p class="intro__std" data-reveal><Icon name="check" size={20} /><span>{lead.standard}</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc sec paper" aria-labelledby="svc-h">
+    <div class="wrap">
+      <div class="svc__head">
+        <h2 id="svc-h" class="display fs-d2" data-reveal>Lead work we do</h2>
+        <p class="muted" data-reveal>{lead.listIntro.replace(':', '')} sheet roofs, dormers, gutters, bays, chimneys, flashings and lead slates — plus the ornamental pieces in the photos below.</p>
+      </div>
+      <ServiceGrid />
+    </div>
+  </section>
+
+  <LanternBuild />
+
+  <section class="proc sec stone" aria-labelledby="proc-h">
+    <div class="wrap">
+      <p class="label kicker bz" data-reveal>One job, three stages</p>
+      <h2 id="proc-h" class="display fs-d2" data-reveal>A curved pediment, leaded</h2>
+      <ol role="list" class="proc__grid">
+        {process.map((p, i) => (
+          <li data-reveal data-delay={i * 90}>
+            <div class="ph proc__ph"><img src={img(p.img, true)} alt={`${p.t}: ${p.d}`} width="600" height="800" loading="lazy" decoding="async" /></div>
+            <p class="proc__n label bz">{p.n}</p>
+            <h3 class="proc__t">{p.t}</h3>
+            <p class="muted">{p.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="gal sec dark" aria-labelledby="gal-h">
+    <div class="wrap gal__head">
+      <h2 id="gal-h" class="display fs-d2 metal" data-reveal>Our work</h2>
+      <a href="/our-work" class="link-arrow" data-reveal>All {work.length} photos <Icon name="arrow" size={16} /></a>
+    </div>
+    <div class="strip gal__strip" data-lenis-prevent-horizontal>
+      {work.slice(0, 10).map((w) => (
+        <a href="/our-work" class="gal__item">
+          <div class="ph"><img src={img(w.img, true)} alt={w.cap} width="600" height="800" loading="lazy" decoding="async" /></div>
+          <p class="label muted">{w.tag}</p>
+          <p class="gal__cap">{w.cap}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <Reviews />
+
+  <section class="ar sec dark" aria-labelledby="ar-h">
+    <div class="wrap">
+      <div class="ar__head">
+        <div>
+          <p class="label kicker bz" data-reveal>Areas we cover</p>
+          <h2 id="ar-h" class="display fs-d2 metal" data-reveal>Based in Bracknell</h2>
+        </div>
+        <p class="muted ar__p" data-reveal>{tavan.base} {lead.areasQ}</p>
+      </div>
+      <div class="ar__cols">
+        {regions.map((r) => (
+          <div data-reveal>
+            <h3 class="label bz">{r}</h3>
+            <ul role="list">
+              {areas.filter((a) => a.county === r).map((a) => <li><a href={`/areas/${a.slug}`}>Lead work {a.name}<span class="muted">{fromBase(a)} mi</span></a></li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+  <EnquiryBand />
+</Base>
+
+<style>
+  .hero { position: relative; padding: calc(var(--hdr) + clamp(36px, 5vw, 80px)) 0 clamp(56px, 6vw, 96px); background: radial-gradient(60% 70% at 80% 30%, rgba(168, 139, 114, 0.16), transparent 70%), var(--black); overflow: hidden; }
+  .hero__grid { display: grid; gap: 44px; align-items: center; }
+  .hero__copy { display: grid; gap: 24px; justify-items: start; }
+  .hero h1 { max-width: 15ch; }
+  .hero__sub { display: block; margin-top: 0.3em; font-size: 0.42em; letter-spacing: 0.06em; color: var(--text-on-dark); line-height: 1.15; }
+  .hero .lede { max-width: 46ch; }
+  .hero__btns { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero__g { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 10px; text-decoration: none; font-size: 0.92rem; color: var(--muted-on-dark); }
+  .hero__g strong { color: var(--champagne); }
+  .hero__stars { display: inline-flex; gap: 2px; color: var(--bronze-hot); }
+  .hero__media { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr); gap: 14px; align-items: end; }
+  .hero__a { aspect-ratio: 3 / 4; }
+  .hero__b { aspect-ratio: 3 / 4; margin-bottom: 18%; }
+  .hero__cap { grid-column: 1 / -1; color: var(--muted-on-dark); }
+  .hero .ph { border: 1px solid var(--line-dark); }
+  @media (min-width: 1000px) {
+    .hero__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 64px; }
+    .hero { min-height: 100svh; display: flex; align-items: center; }
+    .hero > .wrap { width: 100%; }
+    .hero__a { max-height: 74svh; }
+  }
+
+  .intro__grid { display: grid; gap: 32px; }
+  .intro__grid .kicker { margin-bottom: 16px; }
+  .intro__txt { display: grid; gap: 20px; max-width: 62ch; }
+  .intro__std { display: flex; gap: 12px; align-items: center; font-weight: 600; padding-top: 18px; border-top: 1px solid var(--line-light); }
+  .intro__std svg { color: var(--bronze-deep); flex: none; }
+  @media (min-width: 1000px) { .intro__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 80px; } }
+
+  .svc__head { display: grid; gap: 16px; margin-bottom: 40px; }
+  .svc__head .muted { max-width: 60ch; }
+  @media (min-width: 1000px) { .svc__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; } }
+
+  .proc .kicker { margin-bottom: 16px; }
+  .proc__grid { margin: 40px 0 0; display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 760px) { .proc__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .proc__ph { aspect-ratio: 4 / 5; margin-bottom: 16px; }
+  .proc__t { font: 700 1.3rem/1.1 var(--f-display); text-transform: uppercase; margin: 4px 0 6px; }
+
+  .gal__head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 32px; }
+  .gal__strip { grid-auto-columns: minmax(220px, 300px); }
+  .gal__item { display: grid; gap: 8px; text-decoration: none; }
+  .gal__item .ph { aspect-ratio: 3 / 4; }
+  .gal__item .label { margin-top: 6px; }
+  .gal__cap { font-size: 0.95rem; }
+
+  .ar__head { display: grid; gap: 20px; margin-bottom: 40px; }
+  .ar__head .kicker { margin-bottom: 16px; }
+  .ar__p { max-width: 54ch; }
+  @media (min-width: 1000px) { .ar__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; } }
+  .ar__cols { display: grid; gap: 32px 24px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 560px) { .ar__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .ar__cols { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  .ar__cols ul { margin: 14px 0 0; border-top: 1px solid var(--line-dark); }
+  .ar__cols a { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line-dark); text-decoration: none; font-size: 0.95rem; }
+  .ar__cols a:hover { color: var(--champagne); }
+  .ar__cols a .muted { font: 500 0.72rem/1.6 var(--f-mono); white-space: nowrap; }
+</style>

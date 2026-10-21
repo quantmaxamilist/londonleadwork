@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import EnquiryBand from '../../components/EnquiryBand.astro';
+import { areas, regions, fromBase, lead, tavan, img } from '../../data/site';
+---
+<Base title="Areas We Cover | Lead Work in Berkshire, Surrey, Thames Valley & South London | London Leadwork" description={`Lead roofing and lead work across Berkshire, Thames Valley, Surrey and South London — ${areas.slice(0, 8).map((a) => a.name).join(', ')} and more. Based in Bracknell.`}>
+  <PageHero kicker="Areas" title="Areas we cover" lede={tavan.base} img={img('cornice-capping-stone')} alt="Lead cornice capping" crumbs={[{ label: 'Areas' }]} />
+  <section class="sec stone">
+    <div class="wrap">
+      <p class="statement" data-reveal style="max-width:40ch;margin-bottom:40px">{lead.areasQ}</p>
+      <div class="ai">
+        {regions.map((r) => (
+          <div data-reveal>
+            <h2 class="display fs-d3">{r}</h2>
+            <ul role="list">{areas.filter((a) => a.county === r).map((a) => <li><a href={`/areas/${a.slug}`}><span>Lead work in {a.name}</span><span class="label muted">{fromBase(a)} miles</span></a></li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <p class="muted ai__note">Distances are straight-line from our base in Bracknell.</p>
+    </div>
+  </section>
+  <EnquiryBand />
+</Base>
+<style>
+  .ai { display: grid; gap: 40px 32px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 760px) { .ai { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) { .ai { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .ai ul { margin: 16px 0 0; border-top: 1px solid var(--line-light); }
+  .ai a { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line-light); text-decoration: none; }
+  .ai a:hover { color: var(--bronze-deep); }
+  .ai__note { margin-top: 32px; font-size: var(--fs-small); }
+</style>

@@ -1,0 +1,54 @@
+---
+import Icon from './Icon.astro';
+import { google, brand } from '../data/site';
+interface Props { heading?: boolean }
+const { heading = true } = Astro.props;
+---
+<section class="rv sec stone" id="reviews" aria-labelledby="rv-h">
+  <div class="wrap">
+    <div class="rv__head">
+      <div>
+        <p class="label kicker bz" data-reveal>Google reviews</p>
+        {heading ? <h2 id="rv-h" class="display fs-d2" data-reveal>What customers say</h2> : <h2 id="rv-h" class="sr-only">Google reviews</h2>}
+      </div>
+      <a class="rv__score" href={google.url} target="_blank" rel="noopener" data-reveal>
+        <span class="rv__num display">{google.rating}</span>
+        <span class="rv__meta">
+          <span class="rv__stars" aria-label={`${google.rating} out of 5 stars`}>{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={18} />)}</span>
+          <span>{google.count} reviews on Google</span>
+          <span class="muted">{brand.parentLegal}</span>
+        </span>
+      </a>
+    </div>
+    <p class="rv__note muted" data-reveal>London Leadwork grew out of {brand.parent}. These reviews were left for {brand.parent} on Google and are shown word for word.</p>
+    <ul role="list" class="rv__grid">
+      {google.reviews.map((r, i) => (
+        <li class="rv__card" data-reveal data-delay={i * 80}>
+          <span class="rv__stars" aria-label="5 out of 5 stars">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={15} />)}</span>
+          <blockquote>{r.text}</blockquote>
+          <p class="rv__by"><strong>{r.name}</strong><span class="muted"> · {r.when} · Google</span></p>
+        </li>
+      ))}
+    </ul>
+    <div class="rv__cta" data-reveal>
+      <a href={google.url} class="btn" target="_blank" rel="noopener"><Icon name="google" />Read all {google.count} reviews on Google</a>
+    </div>
+  </div>
+</section>
+<style>
+  .rv__head { display: grid; gap: 28px; align-items: end; }
+  @media (min-width: 900px) { .rv__head { grid-template-columns: minmax(0, 1fr) auto; } }
+  .rv__head .kicker { margin-bottom: 16px; }
+  .rv__score { display: flex; align-items: center; gap: 18px; text-decoration: none; padding: 18px 22px; background: var(--paper); border: 1px solid var(--line-light); }
+  .rv__score:hover { border-color: var(--bronze-deep); }
+  .rv__num { font-size: clamp(2.6rem, 2rem + 2vw, 3.6rem); line-height: 1; color: var(--bronze-deep); }
+  .rv__meta { display: grid; gap: 4px; font-size: 0.92rem; }
+  .rv__stars { display: inline-flex; gap: 2px; color: #b8860b; }
+  .rv__note { margin: 20px 0 36px; max-width: 70ch; font-size: var(--fs-small); }
+  .rv__grid { margin: 0; display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 900px) { .rv__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .rv__card { display: grid; gap: 16px; align-content: start; padding: clamp(20px, 2.4vw, 32px); background: var(--paper); border-top: 3px solid var(--bronze); }
+  .rv__card blockquote { margin: 0; font-size: 1.02rem; line-height: 1.6; }
+  .rv__by { font-size: 0.9rem; margin-top: auto; }
+  .rv__cta { margin-top: 32px; }
+</style>

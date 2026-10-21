@@ -1,0 +1,74 @@
+---
+import '@fontsource-variable/cinzel';
+import '@fontsource-variable/schibsted-grotesk';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+import { brand, contact, google, areas, SITE, services } from '../data/site';
+interface Props { title: string; description: string; image?: string; schema?: object | object[] }
+const { title, description, image = '/img/og.jpg', schema } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), SITE).href;
+const biz = {
+  '@context': 'https://schema.org',
+  '@type': ['RoofingContractor', 'LocalBusiness'],
+  '@id': SITE + '/#business',
+  name: brand.name,
+  legalName: brand.legalName,
+  url: SITE,
+  logo: SITE + '/img/brand/logo-640.png',
+  image: SITE + '/img/og.jpg',
+  telephone: '+447741586705',
+  email: contact.email,
+  address: { '@type': 'PostalAddress', streetAddress: contact.street, addressLocality: contact.town, postalCode: contact.postcode, addressRegion: 'Berkshire', addressCountry: 'GB' },
+  geo: { '@type': 'GeoCoordinates', latitude: contact.geo.lat, longitude: contact.geo.lng },
+  areaServed: [
+    ...['Berkshire', 'Surrey', 'South London', 'Thames Valley'].map((n) => ({ '@type': 'AdministrativeArea', name: n })),
+    ...areas.map((a) => ({ '@type': 'City', name: a.name })),
+  ],
+  parentOrganization: { '@type': 'RoofingContractor', name: brand.parentLegal, url: brand.parentUrl },
+  hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Lead work', itemListElement: services.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.name, url: `${SITE}/lead-work/${s.slug}` } })) },
+  sameAs: [google.url],
+};
+const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0c0b09" />
+    <meta name="geo.region" content="GB-BRC" />
+    <meta name="geo.placename" content="Bracknell" />
+    <meta name="geo.position" content={`${contact.geo.lat};${contact.geo.lng}`} />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content={brand.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, SITE).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(biz)} />
+    {extra.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    <script is:inline>(function(d){d.classList.add('js');try{if(sessionStorage.getItem('ll-tx')==='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('tx-in');sessionStorage.setItem('ll-tx','0')}}catch(e){}})(document.documentElement);</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <MobileBar />
+    <div class="curtain" aria-hidden="true" data-curtain><img src="/favicon.png" alt="" width="44" height="44" /></div>
+    <div class="cursor is-hidden" aria-hidden="true" data-cursor><span class="cursor__ring"></span><span class="cursor__dot"></span></div>
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>

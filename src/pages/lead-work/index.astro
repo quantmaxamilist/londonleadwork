@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceGrid from '../../components/ServiceGrid.astro';
+import EnquiryBand from '../../components/EnquiryBand.astro';
+import Icon from '../../components/Icon.astro';
+import { lead, img, contact } from '../../data/site';
+---
+<Base title="Lead Work Services | Lead Roofs, Dormers, Gutters & Flashings | London Leadwork" description="Lead sheet roofs, lead dormer cheeks, box gutters, bay and box window roofs, chimney gutters, flashings and lead slates. All our lead work comply with the BS EN 12588 standard. Free quotes.">
+  <PageHero kicker="Services" title="Lead work" lede={lead.p1} img={img('parapet-gutter-stone-house')} alt="Lead parapet gutter on a stone house" crumbs={[{ label: 'Lead work' }]}>
+    <div class="lw__btns"><a href="/contact" class="btn">Get a free quote <Icon name="arrow" /></a><a href={contact.phoneHref} class="btn btn--ghost"><Icon name="phone" />{contact.phone}</a></div>
+  </PageHero>
+  <section class="sec stone">
+    <div class="wrap lw__grid">
+      <div class="lw__txt">
+        <p class="statement" data-reveal>{lead.p2}</p>
+        <p data-reveal><strong>{lead.standard}</strong></p>
+      </div>
+      <div data-reveal>
+        <p class="label bz">{lead.listIntro}</p>
+        <ul role="list" class="lw__list">{lead.list.map((l) => <li><Icon name="check" size={18} />{l}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+  <section class="sec paper"><div class="wrap"><ServiceGrid /></div></section>
+  <EnquiryBand />
+</Base>
+<style>
+  .lw__btns { display: flex; flex-wrap: wrap; gap: 12px; }
+  .lw__grid { display: grid; gap: 40px; }
+  @media (min-width: 1000px) { .lw__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 80px; } }
+  .lw__txt { display: grid; gap: 20px; }
+  .lw__list { margin: 14px 0 0; border-top: 1px solid var(--line-light); }
+  .lw__list li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--line-light); }
+  .lw__list svg { flex: none; color: var(--bronze-deep); margin-top: 3px; }
+</style>

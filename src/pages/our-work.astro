@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import EnquiryBand from '../components/EnquiryBand.astro';
+import Icon from '../components/Icon.astro';
+import { work, img } from '../data/site';
+const tags = [...new Set(work.map((w) => w.tag))];
+---
+<Base title="Our Work | Lead Roofing Photos | London Leadwork" description="Photos of our lead work: curved lead pediments, lead lantern roofs and finials, parapet gutters, dormer cheeks, bay roofs and lead cappings.">
+  <PageHero kicker="Gallery" title="Our work" lede="Photos from our jobs — pediments, lanterns, gutters, dormers, bays and cappings." img={img('lead-coping-welded')} alt="Lead coping with welded corners" crumbs={[{ label: 'Our work' }]} />
+  <section class="sec dark gw">
+    <div class="wrap">
+      <div class="gw__filters" role="group" aria-label="Filter photos">
+        <button type="button" class="gw__f is-on" data-f="all">All</button>
+        {tags.map((t) => <button type="button" class="gw__f" data-f={t}>{t}</button>)}
+      </div>
+      <ul role="list" class="gw__grid">
+        {work.map((w, i) => (
+          <li data-tag={w.tag}>
+            <button type="button" class="gw__item" data-i={i} data-src={img(w.img)} data-cap={w.cap} aria-label={`Open photo: ${w.cap}`}>
+              <div class="ph"><img src={img(w.img, true)} alt={w.cap} width="600" height="800" loading="lazy" decoding="async" /></div>
+            </button>
+            <p class="gw__cap">{w.cap}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <dialog class="lb" data-lb aria-label="Photo viewer">
+    <button type="button" class="lb__x" data-lb-x aria-label="Close"><Icon name="close" size={24} /></button>
+    <img data-lb-img alt="" />
+    <p class="lb__cap label" data-lb-cap></p>
+  </dialog>
+  <EnquiryBand />
+</Base>
+<style>
+  .gw__filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .gw__f { font: 600 0.72rem/1 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; padding: 11px 14px; background: none; border: 1px solid var(--line-dark); color: var(--muted-on-dark); cursor: pointer; }
+  .gw__f.is-on, .gw__f:hover { border-color: var(--bronze); color: var(--champagne); }
+  .gw__grid { margin: 0; display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 760px) { .gw__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) { .gw__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .gw__grid li { min-width: 0; }
+  .gw__grid li[hidden] { display: none; }
+  .gw__item { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+  .gw__item .ph { aspect-ratio: 3 / 4; }
+  .gw__item:hover .ph img { transform: scale(1.04); }
+  .gw__cap { margin-top: 8px; font-size: 0.88rem; color: var(--muted-on-dark); }
+  .lb { width: 100vw; height: 100svh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(12, 11, 9, 0.96); color: var(--text-on-dark); }
+  .lb[open] { display: grid; place-items: center; grid-template-rows: 1fr auto; padding: 56px 16px 20px; }
+  .lb img { max-width: 100%; max-height: calc(100svh - 120px); object-fit: contain; }
+  .lb__x { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; display: grid; place-items: center; background: none; border: 1px solid var(--line-dark); color: inherit; cursor: pointer; }
+  .lb__cap { padding-top: 12px; color: var(--champagne); }
+</style>
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('.gw__f');
+  const items = document.querySelectorAll<HTMLElement>('.gw__grid li');
+  btns.forEach((b) => b.addEventListener('click', () => {
+    btns.forEach((x) => x.classList.toggle('is-on', x === b));
+    items.forEach((li) => { li.hidden = b.dataset.f !== 'all' && li.dataset.tag !== b.dataset.f; });
+  }));
+  const lb = document.querySelector<HTMLDialogElement>('[data-lb]');
+  const li = document.querySelector<HTMLImageElement>('[data-lb-img]');
+  const lc = document.querySelector<HTMLElement>('[data-lb-cap]');
+  document.querySelectorAll<HTMLButtonElement>('.gw__item').forEach((b) => b.addEventListener('click', () => {
+    if (!lb || !li || !lc) return;
+    li.src = b.dataset.src!; li.alt = b.dataset.cap!; lc.textContent = b.dataset.cap!;
+    lb.showModal();
+  }));
+  document.querySelector('[data-lb-x]')?.addEventListener('click', () => lb?.close());
+  lb?.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+</script>

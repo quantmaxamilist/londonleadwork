@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { contact } from '../data/site';
+---
+<Base title="Page not found | London Leadwork" description="This page could not be found.">
+  <section class="nf dark">
+    <div class="wrap nf__in">
+      <p class="label bz">404</p>
+      <h1 class="display fs-hero metal">Page not found</h1>
+      <div class="nf__btns"><a href="/" class="btn">Home <Icon name="arrow" /></a><a href={contact.phoneHref} class="btn btn--ghost"><Icon name="phone" />{contact.phone}</a></div>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { min-height: 80svh; display: flex; align-items: center; padding: calc(var(--hdr) + 40px) 0 60px; }
+  .nf__in { display: grid; gap: 22px; justify-items: start; }
+  .nf__btns { display: flex; flex-wrap: wrap; gap: 12px; }
+</style>

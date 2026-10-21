@@ -1,0 +1,39 @@
+---
+import Icon from './Icon.astro';
+import { services, img } from '../data/site';
+interface Props { exclude?: string }
+const { exclude } = Astro.props;
+const list = services.filter((s) => s.slug !== exclude);
+---
+<ul role="list" class="sg">
+  {list.map((s, i) => (
+    <li data-reveal data-delay={(i % 3) * 70}>
+      <a href={`/lead-work/${s.slug}`} class="sg__card">
+        <div class="ph sg__ph"><img src={img(s.img, true)} alt={s.alt} width="600" height="800" loading="lazy" decoding="async" /></div>
+        <div class="sg__txt">
+          <span class="sg__n label">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="sg__name">{s.name}</h3>
+          <p class="sg__short">{s.short}</p>
+          <span class="link-arrow">More <Icon name="arrow" size={16} /></span>
+        </div>
+      </a>
+    </li>
+  ))}
+</ul>
+<style>
+  .sg { margin: 0; display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 640px) { .sg { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1040px) { .sg { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .sg li { min-width: 0; }
+  .sg__card { display: grid; grid-template-rows: auto 1fr; height: 100%; text-decoration: none; background: var(--paper); border: 1px solid var(--line-light); transition: border-color 0.3s; }
+  .dark .sg__card { background: var(--ink); border-color: var(--line-dark); }
+  .sg__card:hover { border-color: var(--bronze); }
+  .sg__ph { aspect-ratio: 4 / 3; }
+  .sg__txt { display: grid; gap: 10px; align-content: start; padding: 20px 22px 24px; }
+  .sg__n { color: var(--bronze-deep); }
+  .dark .sg__n { color: var(--bronze); }
+  .sg__name { font: 700 1.2rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: 0.02em; }
+  .sg__short { font-size: 0.95rem; color: var(--muted-on-light); }
+  .dark .sg__short { color: var(--muted-on-dark); }
+  .sg__card .link-arrow { margin-top: 6px; }
+</style>

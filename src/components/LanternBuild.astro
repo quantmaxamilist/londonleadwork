@@ -1,0 +1,98 @@
+---
+// Wow moment: the octagonal lead lantern roof from a real job, assembled in 3D when half on screen.
+import Icon from './Icon.astro';
+import { lantern as l, img } from '../data/site';
+---
+<section class="ln dark" id="lantern" aria-labelledby="ln-h">
+  <div class="wrap ln__grid">
+    <div class="ln__copy">
+      <p class="label kicker bz" data-reveal>{l.kicker}</p>
+      <h2 id="ln-h" class="display fs-d2 metal" data-reveal>{l.title}</h2>
+      <p class="muted" data-reveal>{l.p}</p>
+      <figure class="ln__ref" data-reveal>
+        <div class="ph"><img src={img('lead-lantern-ball-finial', true)} alt="The real lead lantern roof with ball finial, on scaffold" width="600" height="800" loading="lazy" decoding="async" /></div>
+        <figcaption class="label muted">The real one, on site</figcaption>
+      </figure>
+    </div>
+
+    <div class="ln__stage" data-ln>
+      <div class="ln__canvas" data-ln-canvas>
+        <img class="ln__poster" src="/img/lantern-poster.webp" alt="3D model of an octagonal lead lantern roof: base and apron, eight lead bays, hip rolls and a ball finial" width="1000" height="1000" loading="lazy" decoding="async" />
+      </div>
+      <button class="ln__replay label" type="button" data-ln-replay hidden><Icon name="replay" size={16} />Replay</button>
+    </div>
+
+    <ol class="ln__list" role="list" data-ln-list>
+      {l.parts.map((p, i) => (
+        <li>
+          <a href="/lead-work/lead-lanterns-and-finials" data-part={p.key}>
+            <span class="ln__n label">0{i + 1}</span>
+            <span class="ln__name">{p.label}</span>
+            <span class="ln__words muted">{p.words}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .ln { overflow: hidden; background: radial-gradient(50% 60% at 55% 45%, rgba(168, 139, 114, 0.2), transparent 70%), var(--black); padding: var(--sec) 0; }
+  .ln__grid { display: grid; gap: 36px; grid-template-columns: minmax(0, 1fr); }
+  .ln__copy { display: grid; gap: 20px; justify-items: start; align-content: center; }
+  .ln__copy .muted { max-width: 46ch; }
+  .ln__ref { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 14px; align-items: end; margin: 6px 0 0; }
+  .ln__ref .ph { aspect-ratio: 3 / 4; border: 1px solid var(--line-dark); }
+  .ln__stage { position: relative; width: 100%; max-width: 620px; justify-self: center; aspect-ratio: 1; }
+  .ln__canvas { position: absolute; inset: 0; }
+  .ln__canvas :global(canvas) { width: 100% !important; height: 100% !important; touch-action: pan-y; cursor: grab; }
+  .ln__poster { width: 100%; height: 100%; object-fit: contain; }
+  .ln.has-gl .ln__poster, .ln.gl-pending .ln__poster { display: none; }
+  :global(.js) .ln.gl-pending .ln__list { opacity: 0; }
+  .ln__replay { position: absolute; right: 0; bottom: 0; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; background: rgba(20, 18, 16, 0.85); border: 1px solid var(--line-dark); color: var(--champagne); cursor: pointer; opacity: 0; transition: opacity 0.4s var(--ease); }
+  .ln__replay.is-on { opacity: 1; }
+  .ln__replay:hover { border-color: var(--bronze); }
+  .ln__list { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line-dark); transition: opacity 0.5s var(--ease); }
+  :global(.js) .ln.has-gl .ln__list { opacity: 0; }
+  :global(.js) .ln.has-gl .ln__list.is-on { opacity: 1; }
+  .ln__list li { border-bottom: 1px solid var(--line-dark); min-width: 0; }
+  .ln__list li:nth-child(odd) { border-right: 1px solid var(--line-dark); }
+  .ln__list a { display: grid; gap: 6px; padding: 18px 14px 18px 0; text-decoration: none; height: 100%; transition: background-color 0.2s; }
+  .ln__list li:nth-child(even) a { padding-left: 14px; }
+  .ln__n { color: var(--bronze); }
+  .ln__name { font: 700 1.05rem/1.1 var(--f-display); text-transform: uppercase; color: var(--champagne); }
+  .ln__words { font-size: 0.88rem; line-height: 1.4; }
+  .ln__list a:hover, .ln__list a.is-hl { background: rgba(168, 139, 114, 0.14); }
+  @media (min-width: 1000px) {
+    .ln__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr) minmax(0, 0.6fr); align-items: center; gap: 40px; }
+    .ln__list { grid-template-columns: minmax(0, 1fr); border-top: 0; }
+    .ln__list li:nth-child(odd) { border-right: 0; }
+    .ln__list li { border-bottom: 0; border-left: 1px solid var(--line-dark); }
+    .ln__list a, .ln__list li:nth-child(even) a { padding: 16px 0 16px 20px; }
+  }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>('.ln');
+  const stage = document.querySelector<HTMLElement>('[data-ln]');
+  const list = document.querySelector<HTMLElement>('[data-ln-list]');
+  const replay = document.querySelector<HTMLButtonElement>('[data-ln-replay]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasWebGL = () => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; } };
+  if (section && stage && list && replay && !reduce && hasWebGL() && !new URLSearchParams(location.search).has('nogl')) {
+    section.classList.add('gl-pending');
+    const fail = () => section.classList.remove('gl-pending', 'has-gl');
+    let started = false;
+    const near = new IntersectionObserver((es) => {
+      if (es.some((e) => e.isIntersecting) && !started) {
+        started = true; near.disconnect();
+        const go = () => {
+          const guard = setTimeout(() => { if (!section.classList.contains('has-gl')) fail(); }, 10000);
+          import('../scripts/lantern3d').then((m) => m.mountLantern({ section, stage, list, replay, onReady: () => clearTimeout(guard) })).catch(() => { clearTimeout(guard); fail(); });
+        };
+        ('requestIdleCallback' in window) ? (window as any).requestIdleCallback(go, { timeout: 800 }) : setTimeout(go, 200);
+      }
+    }, { rootMargin: '1400px 0px' });
+    near.observe(section);
+  }
+</script>

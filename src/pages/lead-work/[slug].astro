@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceGrid from '../../components/ServiceGrid.astro';
+import EnquiryBand from '../../components/EnquiryBand.astro';
+import Icon from '../../components/Icon.astro';
+import { services, lead, img, contact, areas, work, SITE, type Service } from '../../data/site';
+export function getStaticPaths() { return services.map((s) => ({ params: { slug: s.slug }, props: { s } })); }
+const { s } = Astro.props as { s: Service };
+const caps = Object.fromEntries(work.map((w) => [w.img, w.cap]));
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'Service', name: s.name, serviceType: 'Lead work', description: s.short, provider: { '@id': SITE + '/#business' }, areaServed: ['Berkshire', 'Surrey', 'South London', 'Thames Valley'] },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' }, { '@type': 'ListItem', position: 2, name: 'Lead work', item: SITE + '/lead-work' }, { '@type': 'ListItem', position: 3, name: s.name, item: `${SITE}/lead-work/${s.slug}` }] },
+];
+---
+<Base title={`${s.name} | Berkshire, Surrey & South London | London Leadwork`} description={`${s.short} London Leadwork — lead work specialists based in Bracknell, covering Berkshire, Thames Valley, Surrey and South London. Free quotes.`} image={img(s.img)} schema={schema}>
+  <PageHero kicker="Lead work" title={s.name} lede={s.short} img={img(s.img)} alt={s.alt} crumbs={[{ label: 'Lead work', href: '/lead-work' }, { label: s.name }]}>
+    <div class="sv__btns"><a href={`/contact?package=${s.slug}`} class="btn">Quote for this <Icon name="arrow" /></a><a href={contact.phoneHref} class="btn btn--ghost"><Icon name="phone" />{contact.phone}</a></div>
+  </PageHero>
+  <section class="sec stone">
+    <div class="wrap sv__grid">
+      <div class="sv__txt">
+        {s.body.map((p) => <p class="lede" data-reveal>{p}</p>)}
+        <p class="sv__std" data-reveal><Icon name="check" size={20} /><span>{lead.standard}</span></p>
+        <p class="muted" data-reveal>{lead.areasQ} {lead.quote}.</p>
+      </div>
+      <div class="sv__gal">
+        {s.gallery.map((g, i) => (
+          <figure data-reveal data-delay={i * 60} class:list={{ wide: i === 0 }}>
+            <div class="ph"><img src={img(g, i !== 0)} alt={caps[g] || s.alt} width={i === 0 ? 1200 : 600} height={i === 0 ? 1600 : 800} loading="lazy" decoding="async" /></div>
+            <figcaption class="label muted">{caps[g] || s.name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="sec dark">
+    <div class="wrap">
+      <h2 class="display fs-d3 metal" data-reveal>{s.name} — areas</h2>
+      <ul role="list" class="sv__areas" data-reveal>{areas.map((a) => <li><a href={`/areas/${a.slug}`}>{a.name}</a></li>)}</ul>
+    </div>
+  </section>
+  <section class="sec paper"><div class="wrap"><h2 class="display fs-d3" data-reveal style="margin-bottom:32px">More lead work</h2><ServiceGrid exclude={s.slug} /></div></section>
+  <EnquiryBand pkg={s.slug} />
+</Base>
+<style>
+  .sv__btns { display: flex; flex-wrap: wrap; gap: 12px; }
+  .sv__grid { display: grid; gap: 40px; }
+  @media (min-width: 1000px) { .sv__grid { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 64px; align-items: start; } .sv__txt { position: sticky; top: calc(var(--hdr) + 24px); } }
+  .sv__txt { display: grid; gap: 20px; }
+  .sv__std { display: flex; gap: 12px; align-items: center; font-weight: 600; padding-top: 18px; border-top: 1px solid var(--line-light); }
+  .sv__std svg { color: var(--bronze-deep); flex: none; }
+  .sv__gal { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sv__gal figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+  .sv__gal .wide { grid-column: 1 / -1; }
+  .sv__gal .ph { aspect-ratio: 3 / 4; }
+  .sv__gal .wide .ph { aspect-ratio: 4 / 3; }
+  .sv__areas { margin: 24px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .sv__areas a { display: inline-block; padding: 8px 12px; border: 1px solid var(--line-dark); text-decoration: none; font-size: 0.9rem; }
+  .sv__areas a:hover { border-color: var(--bronze); color: var(--champagne); }
+</style>
