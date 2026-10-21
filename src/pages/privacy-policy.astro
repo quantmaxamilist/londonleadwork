@@ -9,7 +9,7 @@ import { contact, brand } from '../data/site';
       <p>When you send an enquiry through this website we receive your name, phone number, email address, area and message. We use them only to reply to your enquiry and to quote for your job.</p>
       <p>Enquiries are delivered to our inbox by Web3Forms. We do not sell or share your details with anyone else.</p>
       <p>This site does not use advertising or tracking cookies.</p>
-      <p>To ask what we hold about you, or to have it deleted, email <a href={`mailto:${contact.email}`}>{contact.email}</a> or call {contact.phone}.</p>
+      <p>To ask what we hold about you, or to have it deleted, call {contact.phone}{contact.email && <> or email <a href={`mailto:${contact.email}`}>{contact.email}</a></>}.</p>
       <p class="muted">{brand.legalName}, {contact.street}, {contact.town} {contact.postcode}.</p>
     </div>
   </section>

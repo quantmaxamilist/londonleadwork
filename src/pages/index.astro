@@ -6,7 +6,7 @@ import LanternBuild from '../components/LanternBuild.astro';
 import Reviews from '../components/Reviews.astro';
 import Faq from '../components/Faq.astro';
 import EnquiryBand from '../components/EnquiryBand.astro';
-import { lead, tavan, brand, google, contact, work, process, areas, regions, faqs, img, fromBase } from '../data/site';
+import { lead, coverage, google, contact, work, process, areas, regions, faqs, img, fromBase } from '../data/site';
 const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 ---
 <Base
@@ -29,10 +29,12 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
           <a href="/contact" class="btn">Get a free quote <Icon name="arrow" /></a>
           <a href={contact.phoneHref} class="btn btn--ghost"><Icon name="phone" />{contact.phone}</a>
         </div>
-        <a class="hero__g" href="#reviews">
-          <span class="hero__stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={15} />)}</span>
-          <span><strong>{google.rating}</strong> on Google · {google.count} reviews of {brand.parent}</span>
-        </a>
+        {google.reviews.length > 0 && (
+          <a class="hero__g" href="#reviews">
+            <span class="hero__stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={15} />)}</span>
+            <span><strong>{google.rating}</strong> on Google · {google.count} reviews</span>
+          </a>
+        )}
       </div>
       <div class="hero__media">
         <div class="ph hero__a"><img src={img('curved-pediment-finished')} alt="Curved pediment clad in lead above a flat roof" width="1200" height="1600" fetchpriority="high" /></div>
@@ -46,11 +48,11 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
     <div class="wrap intro__grid">
       <div>
         <p class="label kicker bz" data-reveal>{lead.title}</p>
-        <h2 class="display fs-d2" data-reveal>From {brand.parent}, now its own business</h2>
+        <h2 class="display fs-d2" data-reveal>Replacement &amp; maintenance</h2>
       </div>
       <div class="intro__txt">
         <p class="statement" data-reveal>{lead.p2}</p>
-        <p data-reveal>London Leadwork is the lead work side of {brand.parent}, the Bracknell roofing company. {tavan.experience.replace('At Tavan we offer', 'Tavan offers')}</p>
+        <p data-reveal>{coverage.base}</p>
         <p class="intro__std" data-reveal><Icon name="check" size={20} /><span>{lead.standard}</span></p>
       </div>
     </div>
@@ -110,7 +112,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
           <p class="label kicker bz" data-reveal>Areas we cover</p>
           <h2 id="ar-h" class="display fs-d2 metal" data-reveal>Based in Bracknell</h2>
         </div>
-        <p class="muted ar__p" data-reveal>{tavan.base} {lead.areasQ}</p>
+        <p class="muted ar__p" data-reveal>{coverage.base} {lead.areasQ}</p>
       </div>
       <div class="ar__cols">
         {regions.map((r) => (

@@ -2,7 +2,20 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/services", "destination": "/lead-work", "permanent": true },
-    { "source": "/gallery", "destination": "/our-work", "permanent": true }
+    {
+      "source": "/services",
+      "destination": "/lead-work",
+      "permanent": true
+    },
+    {
+      "source": "/gallery",
+      "destination": "/our-work",
+      "permanent": true
+    },
+    {
+      "source": "/reviews",
+      "destination": "/",
+      "permanent": false
+    }
   ]
 }

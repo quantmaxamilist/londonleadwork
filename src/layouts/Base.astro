@@ -20,16 +20,15 @@ const biz = {
   logo: SITE + '/img/brand/logo-640.png',
   image: SITE + '/img/og.jpg',
   telephone: '+447741586705',
-  email: contact.email,
+  ...(contact.email ? { email: contact.email } : {}),
   address: { '@type': 'PostalAddress', streetAddress: contact.street, addressLocality: contact.town, postalCode: contact.postcode, addressRegion: 'Berkshire', addressCountry: 'GB' },
   geo: { '@type': 'GeoCoordinates', latitude: contact.geo.lat, longitude: contact.geo.lng },
   areaServed: [
     ...['Berkshire', 'Surrey', 'South London', 'Thames Valley'].map((n) => ({ '@type': 'AdministrativeArea', name: n })),
     ...areas.map((a) => ({ '@type': 'City', name: a.name })),
   ],
-  parentOrganization: { '@type': 'RoofingContractor', name: brand.parentLegal, url: brand.parentUrl },
   hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Lead work', itemListElement: services.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.name, url: `${SITE}/lead-work/${s.slug}` } })) },
-  sameAs: [google.url],
+  ...(google.url ? { sameAs: [google.url] } : {}),
 };
 const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---

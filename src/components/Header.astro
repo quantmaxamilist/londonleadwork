@@ -42,7 +42,7 @@ const active = (href: string) => path === href || path.startsWith(href + '/');
     {nav.slice(1).map((n) => <a class="mnav__big display" href={n.href}>{n.label}</a>)}
     <div class="mnav__contact">
       <a href={contact.phoneHref} class="btn"><Icon name="phone" />{contact.phone}</a>
-      <a href={`mailto:${contact.email}`} class="btn btn--ghost"><Icon name="mail" />Email us</a>
+      <a href="/contact" class="btn btn--ghost">Free quote <Icon name="arrow" /></a>
     </div>
   </nav>
 </div>

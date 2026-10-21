@@ -19,7 +19,7 @@ const faqs = [
   { q: `Do you do lead work in ${a.name}?`, a: `Yes. ${a.name} is ${where}, inside the ${a.county === 'Hampshire' ? 'home counties and M4 corridor area' : a.county} area we cover.` },
   { q: `What lead work do you do in ${a.name}?`, a: `${lead.list.slice(0, 6).join(', ')}, and ${lead.list[6].charAt(0).toLowerCase() + lead.list[6].slice(1)}` },
   { q: 'What standard do you work to?', a: lead.standard },
-  { q: `How do I get a quote in ${a.name}?`, a: `${lead.quote} — ${contact.phone} or ${contact.email}, or use the form on our contact page.` },
+  { q: `How do I get a quote in ${a.name}?`, a: `${lead.quote} — call ${contact.phone}, or use the form on our contact page.` },
 ];
 const schema = [
   { '@context': 'https://schema.org', '@type': 'Service', name: `Lead work in ${a.name}`, serviceType: 'Lead roofing', provider: { '@id': SITE + '/#business' }, areaServed: { '@type': 'City', name: a.name, geo: { '@type': 'GeoCoordinates', latitude: a.lat, longitude: a.lng } } },

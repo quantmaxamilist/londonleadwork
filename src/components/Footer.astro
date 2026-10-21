@@ -7,10 +7,12 @@ import { contact, services, areas, brand, google, regions } from '../data/site';
     <div class="ftr__top">
       <div class="ftr__brand">
         <img src="/img/brand/logo-640.png" alt="London Leadwork & Co Ltd" width="640" height="595" loading="lazy" />
-        <a class="ftr__g" href={google.url} target="_blank" rel="noopener">
-          <span class="ftr__stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={14} />)}</span>
-          <span><strong>{google.rating}</strong> from {google.count} Google reviews of {brand.parent}</span>
-        </a>
+        {google.url && (
+          <a class="ftr__g" href={google.url} target="_blank" rel="noopener">
+            <span class="ftr__stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={14} />)}</span>
+            <span><strong>{google.rating}</strong> from {google.count} Google reviews</span>
+          </a>
+        )}
       </div>
       <div class="ftr__cols">
         <div>
@@ -25,17 +27,16 @@ import { contact, services, areas, brand, google, regions } from '../data/site';
           <p class="label muted">Contact</p>
           <ul role="list" class="ftr__contact">
             <li><a href={contact.phoneHref}><Icon name="phone" size={16} />{contact.phone}</a></li>
-            <li><a href={contact.phone2Href}><Icon name="phone" size={16} />{contact.phone2}</a></li>
-            <li><a href={`mailto:${contact.email}`}><Icon name="mail" size={16} /><span class="brk">{contact.email}</span></a></li>
+            {contact.email && <li><a href={`mailto:${contact.email}`}><Icon name="mail" size={16} /><span class="brk">{contact.email}</span></a></li>}
             <li><span class="ftr__addr"><Icon name="pin" size={16} /><span>{contact.street}, {contact.town} {contact.postcode}</span></span></li>
-            <li><a href="/reviews">Reviews</a></li>
+            <li><a href="/contact">Free quote</a></li>
             <li><a href="/our-work">Our work</a></li>
             <li><a href="/privacy-policy">Privacy</a></li>
           </ul>
         </div>
       </div>
     </div>
-    <p class="ftr__cover muted">Lead work across {regions.join(', ')}. Part of <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a>, Bracknell.</p>
+    <p class="ftr__cover muted">Lead work across {regions.join(', ')}. Based in Bracknell.</p>
     <div class="ftr__bottom">
       <p>© 2026 {brand.legalName}</p>
       <a href="/contact" class="link-arrow">Free quote <Icon name="arrow" size={16} /></a>

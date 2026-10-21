@@ -1,9 +1,7 @@
 // London Leadwork — all site copy lives here.
 // SOURCES
-//  [T-LEAD] tavancontractors.co.uk/lead-work-roof-specialist-berkshire (verbatim)
-//  [T-HOME] tavancontractors.co.uk home page (verbatim)
-//  [G]      Google Business Profile "Roofing Tavan Contractors Ltd" (rating, count, reviews verbatim)
-//  [BRIEF]  Quantweb brief: London Leadwork is the lead work service of Tavan Contractors, now its own business
+//  [T-LEAD] owner's existing lead work page copy (verbatim)
+//  [T-HOME] owner's existing home page copy (verbatim)
 //  [QW]     Quantweb-written connective copy (descriptions of the services named in [T-LEAD] and of what the
 //           photos show). Flagged for the owner to check — nothing here claims years, awards, stats or clients.
 
@@ -12,32 +10,25 @@ export const SITE = 'https://londonleadwork.co.uk'; // [QW] domain to confirm
 export const brand = {
   name: 'London Leadwork',
   legalName: 'London Leadwork & Co Ltd', // from the logo
-  parent: 'Tavan Contractors',
-  parentLegal: 'Roofing Tavan Contractors Ltd', // [G]
-  parentUrl: 'https://www.tavancontractors.co.uk',
 };
 
 export const contact = {
   phone: '07741 586705',
   phoneHref: 'tel:+447741586705',
-  phone2: '020 3538 6994', // [G] Tavan landline
-  phone2Href: 'tel:+442035386994',
-  email: 'sales@tavancontractors.co.uk',
+  email: '', // add London Leadwork's own email here when there is one — email links appear automatically
   street: '28 Mills Chase',
   town: 'Bracknell',
   postcode: 'RG12 9RE',
-  geo: { lat: 51.409424, lng: -0.7378828 }, // [G]
+  geo: { lat: 51.409424, lng: -0.7378828 },
 };
 
-export const google = {
-  rating: '4.9', // [G]
-  count: 37, // [G]
-  url: 'https://maps.google.com/?cid=17289597500900732672',
-  reviews: [
-    { name: 'John Cook', when: '5 months ago', text: 'A great service and competitively priced. Complete de-moss of roof. Replaced broken tiles, resecured ridge tiles, resealed our flat roof and replaced lead flashing that was causing a leak. Great bunch if guys. Very professional, great quality of work and cleaned up very well afterwards. Well recommended.' },
-    { name: 'Karol Fudalej', when: '10 months ago', text: 'Professional and respectful working attitude, on time completed job as agreed, Thank you so much to Harry and his Dad today 100% I can recommend Roofing Tavan Contractor Ltd, Director Dean is "A Man of his word "' },
-    { name: 'Amandeep Bhamra', when: '2 years ago', text: 'Highly recommend. A*** asked Dean to come have a look at a few areas there were leaking , he’s was on the ball straight away, told us exactly what the issues are. Fixed them with no hassle. It’s great to see there still quality companies around like this. Will definitely be using them for future jobs.' },
-  ],
+// London Leadwork's own Google Business Profile — fill in once it exists and the reviews section appears automatically.
+// Only real reviews, copied word for word.
+export const google: { url: string; rating: string; count: number; reviews: { name: string; when: string; text: string }[] } = {
+  url: '',
+  rating: '',
+  count: 0,
+  reviews: [],
 };
 
 // [T-LEAD] verbatim
@@ -61,8 +52,7 @@ export const lead = {
 };
 
 // [T-HOME] verbatim
-export const tavan = {
-  experience: 'At Tavan we offer a competitively priced, professional roofing service, combined with over 100 man-years of experience and knowledge in the roofing industry.',
+export const coverage = {
   base: 'We are based in Bracknell and operate throughout the home counties and M4 corridor.',
 };
 
@@ -186,13 +176,11 @@ export const faqs = [
   { q: 'What standard do you work to?', a: 'All our lead work comply with the BS EN 12588 standard.' },
   { q: 'Which areas do you cover?', a: 'Berkshire, Thames Valley, Surrey and South London. We are based in Bracknell and operate throughout the home counties and M4 corridor.' },
   { q: 'Is the quote free?', a: 'Yes. Call or email to arrange a FREE quotation.' },
-  { q: 'How are you connected to Tavan Contractors?', a: 'London Leadwork is the lead work side of Tavan Contractors, the Bracknell roofing company, now run as its own business.' },
 ];
 
 export const nav = [
   { label: 'Lead work', href: '/lead-work' },
   { label: 'Our work', href: '/our-work' },
-  { label: 'Reviews', href: '/reviews' },
   { label: 'Areas', href: '/areas' },
   { label: 'Contact', href: '/contact' },
 ];

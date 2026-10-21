@@ -1,10 +1,10 @@
 ---
 import Icon from './Icon.astro';
-import { google, brand } from '../data/site';
+import { google } from '../data/site';
 interface Props { heading?: boolean }
 const { heading = true } = Astro.props;
 ---
-<section class="rv sec stone" id="reviews" aria-labelledby="rv-h">
+{google.reviews.length > 0 && <section class="rv sec stone" id="reviews" aria-labelledby="rv-h">
   <div class="wrap">
     <div class="rv__head">
       <div>
@@ -16,11 +16,9 @@ const { heading = true } = Astro.props;
         <span class="rv__meta">
           <span class="rv__stars" aria-label={`${google.rating} out of 5 stars`}>{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={18} />)}</span>
           <span>{google.count} reviews on Google</span>
-          <span class="muted">{brand.parentLegal}</span>
         </span>
       </a>
     </div>
-    <p class="rv__note muted" data-reveal>London Leadwork grew out of {brand.parent}. These reviews were left for {brand.parent} on Google and are shown word for word.</p>
     <ul role="list" class="rv__grid">
       {google.reviews.map((r, i) => (
         <li class="rv__card" data-reveal data-delay={i * 80}>
@@ -34,7 +32,7 @@ const { heading = true } = Astro.props;
       <a href={google.url} class="btn" target="_blank" rel="noopener"><Icon name="google" />Read all {google.count} reviews on Google</a>
     </div>
   </div>
-</section>
+</section>}
 <style>
   .rv__head { display: grid; gap: 28px; align-items: end; }
   @media (min-width: 900px) { .rv__head { grid-template-columns: minmax(0, 1fr) auto; } }

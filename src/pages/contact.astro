@@ -1,10 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import { contact, services, areas, lead, brand } from '../data/site';
+import { contact, services, areas, lead } from '../data/site';
 const key = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
 ---
-<Base title="Contact | Free Lead Work Quote | London Leadwork" description={`${lead.quote}. Call ${contact.phone} or email ${contact.email}. Lead work across Berkshire, Thames Valley, Surrey and South London.`}>
+<Base title="Contact | Free Lead Work Quote | London Leadwork" description={`${lead.quote}. Call ${contact.phone} or send an enquiry online. Lead work across Berkshire, Thames Valley, Surrey and South London.`}>
   <section class="ct dark">
     <div class="wrap ct__grid">
       <div class="ct__info">
@@ -13,14 +13,12 @@ const key = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
         <p class="lede">{lead.quote}.</p>
         <ul role="list" class="ct__list">
           <li><a href={contact.phoneHref}><Icon name="phone" size={22} /><span class="label muted">Mobile</span><strong>{contact.phone}</strong></a></li>
-          <li><a href={contact.phone2Href}><Icon name="phone" size={22} /><span class="label muted">Office</span><strong>{contact.phone2}</strong></a></li>
-          <li><a href={`mailto:${contact.email}`}><Icon name="mail" size={22} /><span class="label muted">Email</span><strong class="brk">{contact.email}</strong></a></li>
+          {contact.email && <li><a href={`mailto:${contact.email}`}><Icon name="mail" size={22} /><span class="label muted">Email</span><strong class="brk">{contact.email}</strong></a></li>}
           <li><span class="ct__row"><Icon name="pin" size={22} /><span class="label muted">Address</span><strong>{contact.street}, {contact.town} {contact.postcode}</strong></span></li>
         </ul>
-        <p class="muted ct__small">London Leadwork is part of <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a>.</p>
       </div>
 
-      <form class="cf" data-cf data-key={key} data-email={contact.email} novalidate>
+      <form class="cf" data-cf data-key={key} data-email={contact.email} data-phone={contact.phone} novalidate>
         <h2 class="label bz">Send an enquiry</h2>
         <fieldset class="cf__ticks">
           <legend class="label">What do you need?</legend>
@@ -95,7 +93,11 @@ const key = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
       const svc = fd.getAll('service').join(', ');
       const body = [`Name: ${fd.get('name')}`, `Phone: ${fd.get('phone')}`, `Email: ${fd.get('email')}`, `Area: ${fd.get('area') || '-'}`, `Services: ${svc || '-'}`, '', String(fd.get('message'))].join('\n');
       const key = form.dataset.key;
-      if (!key) { location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Lead work enquiry')}&body=${encodeURIComponent(body)}`; return; }
+      if (!key) {
+        if (form.dataset.email) { location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Lead work enquiry')}&body=${encodeURIComponent(body)}`; }
+        else { status.textContent = 'Please call us on ' + form.dataset.phone + ' — online enquiries are being set up.'; }
+        return;
+      }
       status.textContent = 'Sending…';
       try {
         const r = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ access_key: key, subject: 'Lead work enquiry — London Leadwork website', from_name: 'London Leadwork website', botcheck: fd.get('botcheck') ? true : '', name: fd.get('name'), phone: fd.get('phone'), email: fd.get('email'), area: fd.get('area'), services: svc, message: fd.get('message') }) });
